@@ -1,0 +1,121 @@
+# 在TS中实现接口
+
+JavaScript 不支持接口，因此，作为 JavaScript 开发人员，你可能有使用接口的经验，也可能没有经验。 在 TypeScript 中，可以像在传统的面向对象的编程中那样使用接口。 你还可以使用接口来定义对象类型，这是本模块的主要内容。
+
+## 接口
+可以使用接口来描述对象、命名和参数化对象的类型，以及将现有的命名对象类型组成新的对象类型。接口不会初始化或实现在其中声明的属性，接口的唯一任务是描述类型。
+
+``` TS
+interface Employee {
+    firstName: string;
+    lastName: string;
+    fullName(): string;
+}
+
+let employee: Employee = {
+    firstName : "Emil",
+    lastName: "Andersson",
+    fullName(): string {
+        return this.firstName + " " + this.lastName;
+    }
+}
+
+//employee.firstName = 10;  //* Error - Type 'number' is not assignable to type 'string'
+
+console.log(emloyee.fullName());
+```
+
+## 接口与类型别名的区别
+
+``` TS
+type Employee = {
+    firstName: string;
+    lastName: string;
+    fullName(): string;
+}
+```
+
+类型别名可以像接口一样使用；但**不能重新打开类型别名以添加新属性，而接口始终是可扩展的**。
+
+可以使用 ? 来表示可选属性。
+``` TS
+interface IceCream {
+    flavor: string;
+    scoops: number;
+    instructions?: string;
+}
+
+function tooManyScoops(dessert: IceCream){
+    if(dessert.scoops >= 4){
+        return dessert.scoops + " is too many scoops!";
+    }
+    else{
+        return "Your order will be ready soon!";
+    }
+}
+
+console.log(tooManyScoops({flavor: 'Test', scoops: 6}));
+```
+
+## 扩展接口
+当使用一个或多个接口扩展接口时，将适用以下规则：
+* 必须从所有接口实现所有必需的属性。
+* 如果属性具有完全相同的名称和类型，则两个接口可以具有相同的属性。
+* 如果两个接口具有名称相同但类型不同的属性，则必须声明一个新属性，以使生成的属性是这两个接口的子类型。
+
+在 IceCream 接口声明下，声明一个名为 Sundae 的新接口，该接口 extendsIceCream 接口。 Sundae 接口包括四个新属性：
+文本类型为 'chocolate' | 'caramel' | 'strawberry' 的 sauce
+类型为 boolean 的 nuts（可选）
+类型为 boolean 的 whippedCream（可选）
+类型为 boolean 的 instructions（可选）
+
+``` TS
+interface IceCream {
+    flavor: string;
+    scoops: number;
+    instructions?: string;
+}
+
+interface Sundae extends IceCream {
+    sauce: 'chocolate' | 'caramel' | 'strawberry';
+    nuts?: boolean;
+    whippedCream?: boolean;
+    instructions?: boolean;
+}
+```
+
+这样系统会报错，因为扩展的接口中属性instructions的类型与原接口不一致。
+![](./images/2022-06-23-11-45-28.png)
+
+## 使用接口描述JavaScript API数据类型
+可以适用接口描述现有的 JavaScript API 并阐明函数参数和返回类型。 接口使你能够清楚地了解 API 的期望值和返回值。
+
+``` TS
+const fetchURL = 'https://jsonplaceholder.typicode.com/posts'
+// Interface describing the shape of our json data
+interface Post {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
+async function fetchPosts(url: string) {
+    let response = await fetch(url);
+    let body = await response.json();
+    return body as Post[];
+}
+async function showPost() {
+    let posts = await fetchPosts(fetchURL);
+    // Display the contents of the first item in the response
+    let post = posts[0];
+    console.log('Post #' + post.id)
+    // If the userId is 1, then display a note that it's an administrator
+    console.log('Author: ' + (post.userId === 1 ? "Administrator" : post.userId.toString()))
+    console.log('Title: ' + post.title)
+    console.log('Body: ' + post.body)
+}
+
+showPost();
+```
+
+
