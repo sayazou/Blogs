@@ -1,0 +1,167 @@
+# 简介
+
+## JS in browser and on server
+### web browser
+JS on html page
+![](./images/2022-06-23-16-53-54.png)
+
+JS in separate file and be used on html page
+![](./images/2022-06-23-16-54-15.png)
+
+### Server
+![](./images/2022-06-23-17-03-01.png)
+
+![](./images/2022-06-23-17-17-48.png)
+
+
+## JS编程环境 与 工具安装
+可以参考该视频：https://docs.microsoft.com/zh-cn/shows/beginners-series-to-javascript/demo-building-your-toolbox-5-of-51
+
+### 安装VS Code
+
+### VS Code 拓展
+![](./images/2022-06-23-17-21-54.png)
+
+### Node.js
+安装Node.js: https://nodejs.org
+![](./images/2022-06-23-17-29-04.png)
+
+## 简单的JS(运行于Node.js)
+
+``` TS
+const place = "World";
+const userName = "Saya";
+
+console.log("Hello %s, My name is " + userName, place);
+console.log("Hello %s, My name is %s", place, userName);
+console.log(`Hello ${place}, my name is ${userName}.`);
+```
+
+**%s** 是字符串占位符。
+**${}** 也是字符串占位符，但是更清晰，推荐使用。
+
+在命令行终端输入 **node xxx.js** 即可运行代码。
+![](./images/2022-06-23-19-11-47.png)
+
+## 快捷键
+注释： Ctrl + / 
+
+## JS基础
+
+### 声明变量
+var, let, const
+
+### var
+Function scoped
+Can be changed in scope
+Availabel before declaration
+
+### let
+Block scoped
+Can be changed in scope
+Only available after declaration
+
+### const
+Block scoped, like let
+Can't be changed
+Only available after declaration
+
+const 是只读的常数
+block scoped 指{}内
+
+var可以在定义前引用，返回"undefined"。let则不能在定义前引用，运行时报错。
+![](./images/2022-06-24-13-06-08.png)
+![](./images/2022-06-24-13-07-33.png)
+![](./images/2022-06-24-13-16-24.png)
+
+
+## 字符串
+**%s** 是字符串占位符。在引号中使用。
+**${}** 也是字符串占位符，但是更清晰，推荐使用。在 **``** 中使用。 
+另外 **${}** 中可以进行逻辑运算。
+
+``` TS
+let str1 = "Hello";
+let str2 = "Saya";
+console.log(str1 + str2);
+console.log(str1 + "!, " + str2);
+
+let num1 = 1;
+let num2 = "1";
+console.log(num1+num2);
+console.log(num1 +1);
+
+let str3 = "JavaScript";
+let str4 = "fun";
+console.log(`I am writing code in ${str3}`);
+console.log(`Formatting in ${str3} is ${str4}`);
+
+let bool1 = true;
+console.log(`1+1 is ${1+1}`);
+console.log(`The opposite of true is ${!bool1}`);
+```
+
+![](./images/2022-06-24-18-29-55.png)
+
+
+## JS的数据类型
+![](./images/2022-06-25-10-52-06.png)
+![](./images/2022-06-25-10-54-06.png)
+
+typeof 检查并返回数据类型名
+instanceof 检查并返回数据类型与参照类型是否（布尔值）匹配
+
+注意：
+数组型在JS中实际上是一个对象类型。
+在使用instanceof 检查时会使用构造函数进行对比。
+
+![](./images/2022-06-25-10-59-16.png)
+关于JS中的 “=” 判断：
+==： 判断数据值是否相等。因为这种方式会先尝试将数据类型转换后再进行比较值是否相等。
+===： 判断数据值与类型是否都相等。
+![](./images/2022-06-25-15-40-16.png)
+同理的, != 与 !==。
+
+JS支持三元运算符。
+
+空字符串=false; Null 或 未定义的对象=false；0=false。
+![](./images/2022-06-25-15-56-21.png)
+
+
+## 类型转换
+
+### number and string
+![](./images/2022-06-25-11-59-50.png)
+转数字： parseInt(), parseFloat()
+转字符串：toString()
+当不能进行有效转换时，系统返回NaN（表示Not a number)。
+
+### Date and Time
+![](./images/2022-06-25-14-59-27.png)
+JS 中日期类型实际上存储的是从1970年1月1日起的毫秒数。
+
+JS中的月是从0开始的，0表示一月，1，表耳二月。。。   
+![](./images/2022-06-25-15-03-55.png)
+另外需要注意，直接打印的时间是以GMT（UTC）表示的。
+![](./images/2022-06-25-15-14-18.png)
+
+![](./images/2022-06-25-15-16-27.png)
+![](./images/2022-06-25-15-16-58.png)
+getDate(): 这个月的第几天，从1开始。
+getDay(): 从周日（0）开始的第几天，例如周五是5。
+![](./images/2022-06-25-15-36-50.png)
+
+## 数组
+![](./images/2022-06-25-16-43-52.png)
+![](./images/2022-06-25-16-57-50.png)
+![](./images/2022-06-25-16-59-46.png)
+![](./images/2022-06-25-17-01-07.png)
+![](./images/2022-06-25-17-02-39.png)
+
+关于向数组中间添加元素，可以借用splice方法。
+![](./images/2022-06-25-17-14-18.png)
+![](./images/2022-06-25-17-15-53.png)
+
+
+## 异常处理 Exception
+![](./images/2022-06-25-14-51-33.png)
